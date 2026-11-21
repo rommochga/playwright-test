@@ -1,23 +1,17 @@
-import { test, expect, Locator } from '@playwright/test';
+import { test, expect } from '../fixtures/MainPage';
 import { MainPage } from '../models/MainPage';
 
-let mainPage: MainPage;
-
 test.describe('Main page tests', () => {
-  test.beforeEach(async ({ page }) => {
-    mainPage = new MainPage(page);
-    await mainPage.openMainPage();
-  });
-  test('Visibility test for Header navigation elements', async () => {
+  test('Visibility test for Header navigation elements', async ({ mainPage }) => {
     await mainPage.checkElementsVisability();
   });
-  test('Naming test for Header navigation elements', async () => {
+  test('Naming test for Header navigation elements', async ({ mainPage }) => {
     await mainPage.checkElementsText();
   });
-  test('Href test for Header navigation elements', async () => {
+  test('Href test for Header navigation elements', async ({ mainPage }) => {
     await mainPage.checkElementsHrefAttribute();
   });
-  test('Light mode switch test', async () => {
+  test('Light mode switch test', async ({ mainPage }) => {
     await test.step('Switching to dark mode', async () => {
       await mainPage.clickSwitchThemeButton();
     });
@@ -42,7 +36,7 @@ test.describe('Main page tests', () => {
         'Playwright enables reliable web automation for testing, scripting, and AI agents.',
       );
   });
-  test(`Light mode value check`, async () => {
+  test(`Light mode value check`, async ({ mainPage }) => {
     await test.step('Switching to light mode', async () => {
       await mainPage.setLightMode();
     });
@@ -50,7 +44,7 @@ test.describe('Main page tests', () => {
       await mainPage.CheckLayoutLightValue();
     });
   });
-  test(`Dark mode value check`, async () => {
+  test(`Dark mode value check`, async ({ mainPage }) => {
     await test.step('Switching to dark mode', async () => {
       await mainPage.setDarkMode();
     });
