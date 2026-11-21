@@ -9,6 +9,7 @@ interface Element {
     value?: string;
   };
 }
+const lightMods = ['light', 'dark'];
 const elements = [
   {
     locator: (page: Page): Locator =>
@@ -140,5 +141,13 @@ test.describe('Main page tests', () => {
       .toContainText(
         'Playwright enables reliable web automation for testing, scripting, and AI agents.',
       );
+  });
+  lightMods.forEach((value) => {
+    test(`ACtive ${value} mode value check`, async ({ page }) => {
+      await page.evaluate((value) => {
+        document.documentElement.setAttribute('data-theme', value);
+      }, value);
+      await expect(page).toHaveScreenshot(`pageWith${value}-mode.png`);
+    });
   });
 });
