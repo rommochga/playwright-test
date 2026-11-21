@@ -86,6 +86,15 @@ const elements = [
     locator: (page: Page): Locator => page.getByRole('button', { name: 'Search (Control+k)' }),
     name: 'Search (Control+k)',
   },
+  {
+    locator: (page: Page): Locator => page.getByRole('link', { name: 'Get started' }),
+    name: 'Get started',
+    text: 'Get started',
+    attribute: {
+      type: 'href',
+      value: '/docs/intro',
+    },
+  },
 ];
 test.describe('Main page tests', () => {
   test.beforeEach(async ({ page }) => {
@@ -131,12 +140,5 @@ test.describe('Main page tests', () => {
       .toContainText(
         'Playwright enables reliable web automation for testing, scripting, and AI agents.',
       );
-  });
-  test('Get Started Button test', async ({ page }) => {
-    await expect.soft(page.getByRole('link', { name: 'Get started' })).toBeVisible();
-    await expect.soft(page.getByRole('link', { name: 'Get started' })).toContainText('Get started');
-    await expect
-      .soft(page.getByRole('link', { name: 'Get started' }))
-      .toHaveAttribute('href', '/docs/intro');
   });
 });
